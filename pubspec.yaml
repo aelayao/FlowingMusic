@@ -9,7 +9,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_music_player_ui: 0.0.2
+  get: ^4.7.3 # A package for state management and navigation in Flutter
+  just_audio: ^0.10.6 # audio player para aplicaciones de flutter
+  # percent_indicator: ^4.2.5 # muestra progreso en una linea o circulo(?) solo de porcentaje?
+  path_provider: ^2.1.6 # Da acceso a los paths de los archivos del dispositivo
+  on_audio_query: ^2.9.0 # toma los archivos de autio del dispositivo y los organiza
+  permission_handler: ^13.0.2 # para pedir permisos de utilizar los archivos del dispositivo 
+  path: ^1.9.1 # para manipular rutas
+  flutter_storage_path: ^1.0.4 # para obtener las rutas de archivos
+  flutter_glass_morphism: ^1.0.0 # glassmorphism para flutter
+  # flutter_neumorphic: ^3.1.1 # Creates neumorphic-style UI components
+  # https://github.com/Hamad-Anwar/Neumorphic-Music_Player-Flutter
+  
 
 dev_dependencies:
   flutter_test:

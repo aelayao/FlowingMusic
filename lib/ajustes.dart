@@ -1,33 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flowing_music/imports.dart';
 
-class HomeScreen extends StatefulWidget{
-    const HomeScreen({super.key});
+class AjustesScreen extends StatelessWidget {
+  const AjustesScreen({super.key});
 
-    @override
-    State<HomeScreen> createState() => _HomeScreenState();
-
-}
-class _HomeScreenState extends State<HomeScreen>{
   @override
-    Widget build(BuildContext context ){
-        return Scaffold(
-          backgroundColor: const Color.fromRGBO(54, 38, 71, 1),
-            body: SafeArea(
-              child:Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Ajustes',
-                        style: TextStyle(fontSize: 28, color: const Color.fromARGB(233, 239, 169, 248), fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        'Ajuste',
-
-                      ),
-                    ]
-              ),
-            )
-        );
-      }
-    }
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Ajustes del Reproductor'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(20.0),
+        children: [
+          SwitchListTile(
+            title: const Text('Modo Oscuro'),
+            subtitle: const Text('Activar o desactivar tema oscuro'),
+            value: true,
+            onChanged: (bool val) {},
+          ),
+          SwitchListTile(
+            title: const Text('Reproducción Aleatoria'),
+            subtitle: const Text(
+              'Reproducir canciones en orden aleatorio',
+            ),
+            value: false,
+            onChanged: (bool val) {},
+          ),
+        ],
+      ),
+    );
+  }
+}

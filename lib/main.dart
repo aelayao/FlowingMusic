@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flowing_music/app.dart';
+import 'app.dart';
 
 void main() {
-  runApp(const MainApp());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(const FlowingMusicApp());
 }

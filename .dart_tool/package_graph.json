@@ -8,11 +8,14 @@
       "version": "0.1.0+1",
       "dependencies": [
         "flutter",
-        "flutter_glass_morphism",
+        "flutter_storage_path",
         "get",
         "just_audio",
+        "material_ui",
+        "on_audio_query",
         "path",
-        "path_provider"
+        "path_provider",
+        "permission_handler"
       ],
       "devDependencies": [
         "flutter_lints",
@@ -45,6 +48,19 @@
       ]
     },
     {
+      "name": "material_ui",
+      "version": "1.11.1",
+      "dependencies": [
+        "collection",
+        "cupertino_ui",
+        "flutter",
+        "flutter_localizations",
+        "intl",
+        "material_color_utilities",
+        "vector_math"
+      ]
+    },
+    {
       "name": "just_audio",
       "version": "0.10.6",
       "dependencies": [
@@ -63,8 +79,8 @@
       ]
     },
     {
-      "name": "flutter_glass_morphism",
-      "version": "1.0.2",
+      "name": "flutter_storage_path",
+      "version": "1.0.4",
       "dependencies": [
         "flutter"
       ]
@@ -73,6 +89,30 @@
       "name": "path",
       "version": "1.9.1",
       "dependencies": []
+    },
+    {
+      "name": "permission_handler",
+      "version": "13.0.2",
+      "dependencies": [
+        "flutter",
+        "meta",
+        "permission_handler_android",
+        "permission_handler_apple",
+        "permission_handler_html",
+        "permission_handler_platform_interface",
+        "permission_handler_windows"
+      ]
+    },
+    {
+      "name": "on_audio_query",
+      "version": "2.9.0",
+      "dependencies": [
+        "flutter",
+        "on_audio_query_android",
+        "on_audio_query_ios",
+        "on_audio_query_platform_interface",
+        "on_audio_query_web"
+      ]
     },
     {
       "name": "path_provider",
@@ -100,6 +140,7 @@
       "dependencies": [
         "characters",
         "collection",
+        "listen",
         "material_color_utilities",
         "meta",
         "sky_engine",
@@ -120,7 +161,7 @@
     },
     {
       "name": "meta",
-      "version": "1.18.3",
+      "version": "1.19.0",
       "dependencies": []
     },
     {
@@ -141,7 +182,7 @@
     },
     {
       "name": "vector_math",
-      "version": "2.4.0",
+      "version": "2.4.4",
       "dependencies": []
     },
     {
@@ -177,7 +218,7 @@
     },
     {
       "name": "test_api",
-      "version": "0.7.12",
+      "version": "0.7.14",
       "dependencies": [
         "async",
         "boolean_selector",
@@ -188,6 +229,41 @@
         "stream_channel",
         "string_scanner",
         "term_glyph"
+      ]
+    },
+    {
+      "name": "material_color_utilities",
+      "version": "0.13.0",
+      "dependencies": [
+        "collection"
+      ]
+    },
+    {
+      "name": "intl",
+      "version": "0.20.3",
+      "dependencies": [
+        "clock",
+        "meta",
+        "path"
+      ]
+    },
+    {
+      "name": "flutter_localizations",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter",
+        "intl",
+        "path"
+      ]
+    },
+    {
+      "name": "cupertino_ui",
+      "version": "1.1.7",
+      "dependencies": [
+        "collection",
+        "flutter",
+        "flutter_localizations",
+        "intl"
       ]
     },
     {
@@ -247,6 +323,85 @@
     {
       "name": "just_audio_platform_interface",
       "version": "4.6.0",
+      "dependencies": [
+        "flutter",
+        "plugin_platform_interface"
+      ]
+    },
+    {
+      "name": "permission_handler_platform_interface",
+      "version": "4.4.1",
+      "dependencies": [
+        "flutter",
+        "meta",
+        "plugin_platform_interface"
+      ]
+    },
+    {
+      "name": "permission_handler_windows",
+      "version": "0.2.4",
+      "dependencies": [
+        "flutter",
+        "permission_handler_platform_interface"
+      ]
+    },
+    {
+      "name": "permission_handler_html",
+      "version": "0.1.4+1",
+      "dependencies": [
+        "flutter",
+        "flutter_web_plugins",
+        "permission_handler_platform_interface",
+        "web"
+      ]
+    },
+    {
+      "name": "permission_handler_apple",
+      "version": "9.6.5",
+      "dependencies": [
+        "flutter",
+        "permission_handler_platform_interface",
+        "yaml"
+      ]
+    },
+    {
+      "name": "permission_handler_android",
+      "version": "14.1.1",
+      "dependencies": [
+        "flutter",
+        "permission_handler_platform_interface"
+      ]
+    },
+    {
+      "name": "on_audio_query_android",
+      "version": "1.1.0",
+      "dependencies": [
+        "flutter",
+        "on_audio_query_platform_interface"
+      ]
+    },
+    {
+      "name": "on_audio_query_ios",
+      "version": "1.1.0",
+      "dependencies": [
+        "flutter",
+        "on_audio_query_platform_interface"
+      ]
+    },
+    {
+      "name": "on_audio_query_web",
+      "version": "1.6.0",
+      "dependencies": [
+        "flutter",
+        "flutter_web_plugins",
+        "id3",
+        "on_audio_query_platform_interface",
+        "path"
+      ]
+    },
+    {
+      "name": "on_audio_query_platform_interface",
+      "version": "1.7.0",
       "dependencies": [
         "flutter",
         "plugin_platform_interface"
@@ -313,10 +468,10 @@
       "dependencies": []
     },
     {
-      "name": "material_color_utilities",
-      "version": "0.13.0",
+      "name": "listen",
+      "version": "1.0.1",
       "dependencies": [
-        "collection"
+        "meta"
       ]
     },
     {
@@ -398,6 +553,20 @@
       "dependencies": [
         "meta"
       ]
+    },
+    {
+      "name": "yaml",
+      "version": "3.1.4",
+      "dependencies": [
+        "collection",
+        "source_span",
+        "string_scanner"
+      ]
+    },
+    {
+      "name": "id3",
+      "version": "1.0.2",
+      "dependencies": []
     },
     {
       "name": "ffi",
@@ -510,15 +679,6 @@
       "name": "args",
       "version": "2.7.0",
       "dependencies": []
-    },
-    {
-      "name": "yaml",
-      "version": "3.1.4",
-      "dependencies": [
-        "collection",
-        "source_span",
-        "string_scanner"
-      ]
     },
     {
       "name": "record_use",

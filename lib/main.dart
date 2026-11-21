@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
-import 'app.dart';
+import 'package:material_ui/material_ui.dart';
+
+import 'ventanas/app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

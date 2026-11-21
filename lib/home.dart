@@ -1,9 +1,10 @@
+import 'package:material_ui/material_ui.dart';
 
-import 'package:flutter/material.dart';
 import 'ajustes.dart';
 import 'listas.dart';
 import 'reproductor.dart';
 import 'catalogo.dart';
+import 'temas/colores.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-
   late TabController _tabController;
 
   bool isLoading = true;
@@ -70,7 +70,6 @@ class _HomeScreenState extends State<HomeScreen>
       body: SafeArea(
         child: Column(
           children: [
-
             // Barra superior.
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -90,16 +89,12 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
 
                   IconButton(
-                    icon: const Icon(
-                      Icons.settings,
-                      color: Colors.white,
-                    ),
+                    icon: const Icon(Icons.settings, color: Colors.white),
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              const AjustesScreen(),
+                          builder: (context) => const AjustesScreen(),
                         ),
                       );
                     },
@@ -110,22 +105,34 @@ class _HomeScreenState extends State<HomeScreen>
 
             // Pestañas.
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(30),
+                  gradient: LinearGradient(colors: [transpMo, transpM]),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
                 ),
                 child: TabBar(
                   controller: _tabController,
-                  indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: const Color(0xFF5C54C4),
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  dividerColor: Colors.transparent,
+                  labelStyle: TextStyle(
+                    fontFamily: 'Gabarito',
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
                   ),
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Colors.white70,
+                  indicator: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                    ),
+                    gradient: LinearGradient(colors: [moradoClr, blanco]),
+                  ),
+                  labelColor: moradoOsc,
+                  unselectedLabelColor: negro,
                   tabs: const [
                     Tab(text: 'Canciones'),
                     Tab(text: 'Listas'),
@@ -141,35 +148,26 @@ class _HomeScreenState extends State<HomeScreen>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-
                   // Pestaña de canciones.
                   if (isLoading)
-                    const Center(
-                      child: CircularProgressIndicator(),
-                    )
+                    const Center(child: CircularProgressIndicator())
                   else if (errorMessage != null)
                     Center(
                       child: Text(
                         errorMessage!,
-                        style: const TextStyle(
-                          color: Colors.white,
-                        ),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     )
                   else if (songList.isEmpty)
                     const Center(
                       child: Text(
                         'No hay canciones disponibles.',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
+                        style: TextStyle(color: Colors.white),
                       ),
                     )
                   else
                     ListView.builder(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       itemCount: songList.length,
                       itemBuilder: (context, index) {
                         final song = songList[index];
@@ -218,13 +216,9 @@ class SongCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.only(bottom: 12.0),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16.0,
-          vertical: 12.0,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
         decoration: BoxDecoration(
-          color: const Color(0xFF3F3268)
-              .withValues(alpha: 0.6),
+          color: const Color(0xFF3F3268).withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(16.0),
         ),
         child: Row(

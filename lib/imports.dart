@@ -1,5 +1,5 @@
 // imports.dart
-export 'package:flutter/material.dart';
+export 'package:material_ui/material_ui.dart';
 export 'app.dart';
 export 'home.dart';
 export 'ajustes.dart';

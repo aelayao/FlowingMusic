@@ -14,6 +14,12 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "audio_metadata_reader",
+      "rootUri": "file:///C:/Users/frog/AppData/Local/Pub/Cache/hosted/pub.dev/audio_metadata_reader-1.8.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "audio_session",
       "rootUri": "file:///C:/Users/frog/AppData/Local/Pub/Cache/hosted/pub.dev/audio_session-0.2.4",
       "packageUri": "lib/",
@@ -30,6 +36,12 @@
       "rootUri": "file:///C:/Users/frog/AppData/Local/Pub/Cache/hosted/pub.dev/characters-1.4.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "charset",
+      "rootUri": "file:///C:/Users/frog/AppData/Local/Pub/Cache/hosted/pub.dev/charset-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "clock",
@@ -234,6 +246,12 @@
       "rootUri": "file:///C:/Users/frog/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.19.0",
       "packageUri": "lib/",
       "languageVersion": "3.5"
+    },
+    {
+      "name": "mime",
+      "rootUri": "file:///C:/Users/frog/AppData/Local/Pub/Cache/hosted/pub.dev/mime-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
     },
     {
       "name": "objective_c",

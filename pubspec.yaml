@@ -16,6 +16,7 @@ dependencies:
   permission_handler: ^13.0.2 # para pedir permisos de utilizar los archivos del dispositivo 
   path: ^1.9.1 # para manipular rutas
   flutter_storage_path: ^1.0.4 # para obtener las rutas de archivos
+  audio_metadata_reader: ^1.8.1
   just_audio: ^0.10.6 # audio player para aplicaciones de flutter
   material_ui: ^1.11.1
   # https://github.com/Hamad-Anwar/Neumorphic-Music_Player-Flutter

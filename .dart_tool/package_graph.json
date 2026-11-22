@@ -7,6 +7,7 @@
       "name": "flowing_music",
       "version": "0.1.0+1",
       "dependencies": [
+        "audio_metadata_reader",
         "flutter",
         "flutter_storage_path",
         "get",
@@ -76,6 +77,15 @@
         "rxdart",
         "synchronized",
         "uuid"
+      ]
+    },
+    {
+      "name": "audio_metadata_reader",
+      "version": "1.8.1",
+      "dependencies": [
+        "charset",
+        "intl",
+        "mime"
       ]
     },
     {
@@ -327,6 +337,16 @@
         "flutter",
         "plugin_platform_interface"
       ]
+    },
+    {
+      "name": "mime",
+      "version": "2.1.0",
+      "dependencies": []
+    },
+    {
+      "name": "charset",
+      "version": "2.0.1",
+      "dependencies": []
     },
     {
       "name": "permission_handler_platform_interface",

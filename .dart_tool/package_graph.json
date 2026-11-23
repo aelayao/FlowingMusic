@@ -9,11 +9,10 @@
       "dependencies": [
         "audio_metadata_reader",
         "flutter",
-        "flutter_storage_path",
         "get",
         "just_audio",
         "material_ui",
-        "on_audio_query",
+        "on_audio_query_pluse",
         "path",
         "path_provider",
         "permission_handler"
@@ -46,6 +45,17 @@
         "stream_channel",
         "test_api",
         "vector_math"
+      ]
+    },
+    {
+      "name": "on_audio_query_pluse",
+      "version": "3.0.7",
+      "dependencies": [
+        "flutter",
+        "on_audio_query_ios",
+        "on_audio_query_platform_interface",
+        "on_audio_query_plus_android",
+        "on_audio_query_web"
       ]
     },
     {
@@ -89,13 +99,6 @@
       ]
     },
     {
-      "name": "flutter_storage_path",
-      "version": "1.0.4",
-      "dependencies": [
-        "flutter"
-      ]
-    },
-    {
       "name": "path",
       "version": "1.9.1",
       "dependencies": []
@@ -111,17 +114,6 @@
         "permission_handler_html",
         "permission_handler_platform_interface",
         "permission_handler_windows"
-      ]
-    },
-    {
-      "name": "on_audio_query",
-      "version": "2.9.0",
-      "dependencies": [
-        "flutter",
-        "on_audio_query_android",
-        "on_audio_query_ios",
-        "on_audio_query_platform_interface",
-        "on_audio_query_web"
       ]
     },
     {
@@ -239,6 +231,41 @@
         "stream_channel",
         "string_scanner",
         "term_glyph"
+      ]
+    },
+    {
+      "name": "on_audio_query_plus_android",
+      "version": "1.3.0",
+      "dependencies": [
+        "flutter",
+        "on_audio_query_platform_interface"
+      ]
+    },
+    {
+      "name": "on_audio_query_ios",
+      "version": "1.1.0",
+      "dependencies": [
+        "flutter",
+        "on_audio_query_platform_interface"
+      ]
+    },
+    {
+      "name": "on_audio_query_web",
+      "version": "1.6.0",
+      "dependencies": [
+        "flutter",
+        "flutter_web_plugins",
+        "id3",
+        "on_audio_query_platform_interface",
+        "path"
+      ]
+    },
+    {
+      "name": "on_audio_query_platform_interface",
+      "version": "1.7.0",
+      "dependencies": [
+        "flutter",
+        "plugin_platform_interface"
       ]
     },
     {
@@ -393,41 +420,6 @@
       ]
     },
     {
-      "name": "on_audio_query_android",
-      "version": "1.1.0",
-      "dependencies": [
-        "flutter",
-        "on_audio_query_platform_interface"
-      ]
-    },
-    {
-      "name": "on_audio_query_ios",
-      "version": "1.1.0",
-      "dependencies": [
-        "flutter",
-        "on_audio_query_platform_interface"
-      ]
-    },
-    {
-      "name": "on_audio_query_web",
-      "version": "1.6.0",
-      "dependencies": [
-        "flutter",
-        "flutter_web_plugins",
-        "id3",
-        "on_audio_query_platform_interface",
-        "path"
-      ]
-    },
-    {
-      "name": "on_audio_query_platform_interface",
-      "version": "1.7.0",
-      "dependencies": [
-        "flutter",
-        "plugin_platform_interface"
-      ]
-    },
-    {
       "name": "path_provider_windows",
       "version": "2.3.0",
       "dependencies": [
@@ -549,6 +541,25 @@
       ]
     },
     {
+      "name": "flutter_web_plugins",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter"
+      ]
+    },
+    {
+      "name": "id3",
+      "version": "1.0.2",
+      "dependencies": []
+    },
+    {
+      "name": "plugin_platform_interface",
+      "version": "2.1.8",
+      "dependencies": [
+        "meta"
+      ]
+    },
+    {
       "name": "typed_data",
       "version": "1.4.0",
       "dependencies": [
@@ -561,20 +572,6 @@
       "dependencies": []
     },
     {
-      "name": "flutter_web_plugins",
-      "version": "0.0.0",
-      "dependencies": [
-        "flutter"
-      ]
-    },
-    {
-      "name": "plugin_platform_interface",
-      "version": "2.1.8",
-      "dependencies": [
-        "meta"
-      ]
-    },
-    {
       "name": "yaml",
       "version": "3.1.4",
       "dependencies": [
@@ -582,11 +579,6 @@
         "source_span",
         "string_scanner"
       ]
-    },
-    {
-      "name": "id3",
-      "version": "1.0.2",
-      "dependencies": []
     },
     {
       "name": "ffi",

@@ -21,8 +21,10 @@ class ServiceMusica {
   AudioPlayer get audioPlayer => _audioPlayer;
   List<Cancion> get songs => _canciones;
   int get currentIndex => _currentIndex;
-  Cancion? get currentSong =>
-      _canciones.isNotEmpty ? _canciones[_currentIndex] : null;
+  Cancion? get cancionAct =>
+      (_currentIndex >= 0 && _currentIndex < _canciones.length)
+      ? _canciones[_currentIndex]
+      : null;
 
   //cargar las canciones al servicio
 
@@ -51,34 +53,41 @@ class ServiceMusica {
     List<String> dirs = [];
 
     final primaryPaths = [
-      '/storage/emulated/0',
+      //'/storage/emulated/0',
       '/storage/emulated/0/Music',
       '/storage/emulated/0/Download',
-      '/storage/emulated/0/Android/data',
-      '/storage/emulated/0/Android/media',
+      //'/storage/emulated/0/Android/data',
+      //'/storage/emulated/0/Android/media',
       '/storage/emulated/0/Media',
       '/storage/emulated/0/Audio',
-      '/storage/emulated/0/Podcasts',
-      '/storage/emulated/0/AudioBooks',
-      '/storage/emulated/0/Ringtones',
-      '/storage/emulated/0/Alarms',
-      '/sdcard',
+      //'/storage/emulated/0/Podcasts',
+      //'/storage/emulated/0/AudioBooks',
+      //'/storage/emulated/0/Ringtones',
+      //'/storage/emulated/0/Alarms',
+      //'/sdcard',
     ];
 
-    final secondaryPaths = [
-      '/storage/emulated/1',
+    final usePaths = <String>[
+      '/storage/emulated/0/Music',
+      '/storage/emulated/0/Download',
+      '/storage/emulated/0/Media',
+      '/storage/emulated/0/Audio',
+    ];
+
+    /*final secondaryPaths = [
+      //'/storage/emulated/1',
       '/storage/sdcard1',
-      '/storage/sdcard2',
+      //'/storage/sdcard2',
       '/storage/extSdCard',
       '/storage/external_SD',
       '/storage/external_SDCard',
-    ];
+    ];*/
 
     dirs.addAll(primaryPaths);
-    dirs.addAll(secondaryPaths);
+    //dirs.addAll(secondaryPaths);
 
-    try {
-      final strgDir = Directory('/storage');
+    /*try {
+      final strgDir = Directory('/storage/emulated/0/Music');
       if (await strgDir.exists()) {
         await for (FileSystemEntity entity in strgDir.list(recursive: false)) {
           if (entity is Directory && !dirs.contains(entity.path)) {
@@ -88,10 +97,10 @@ class ServiceMusica {
       }
     } catch (e) {
       print("Error al intentar obtener los directorios de almacenamiento: $e");
-    }
+    }*/
 
     List<String> existDirs = [];
-    for (String dir in dirs) {
+    for (String dir in usePaths) {
       try {
         final directory = Directory(dir);
         if (await directory.exists()) {
@@ -153,8 +162,14 @@ class ServiceMusica {
       String artist = 'Artísta Desconocido';
       String album = 'Album Desconocido';
       Duration duration = Duration.zero;
-
-      try {
+      if (fileNom.contains(' - ')) {
+        final partes = fileNom.split(' - ');
+        if (partes.length >= 2) {
+          artist = partes[0].trim();
+          title = partes.sublist(1).join(' - ').trim();
+        }
+      }
+      /*try {
         final tempPlayer = AudioPlayer();
         await tempPlayer.setFilePath(file.path);
 
@@ -164,14 +179,8 @@ class ServiceMusica {
 
         await tempPlayer.dispose();
       } catch (e) {
-        if (fileNom.contains(' - ')) {
-          final partes = fileNom.split(' - ');
-          if (partes.length >= 2) {
-            artist = partes[0].trim();
-            title = partes.sublist(1).join(' - ').trim();
-          }
-        }
-      }
+        
+      }*/
 
       return Cancion(
         title: title,

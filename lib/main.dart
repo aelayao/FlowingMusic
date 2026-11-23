@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:material_ui/material_ui.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -17,5 +15,5 @@ Future<void> _requestPermissions() async {
     Permission.storage,
     Permission.manageExternalStorage,
     Permission.audio,
-  ].request;
+  ].request();
 }

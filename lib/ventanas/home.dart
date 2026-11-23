@@ -1,9 +1,11 @@
+import 'package:flowing_music/elementos/canciones_ui.dart';
+import 'package:flowing_music/elementos/mini_player.dart';
 import 'package:flowing_music/reproductor/service_musica.dart';
 import 'package:flowing_music/reproductor/canciones_model.dart';
 
+import '../elementos/mini_player.dart';
 import 'reproductor.dart';
 
-import 'package:get/get.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../elementos/texto.dart';
@@ -42,18 +44,18 @@ class _HomeScreenState extends State<HomeScreen>
     setState(() {
       _isLoading = false;
     });
+  }
 
-    void _tapCancion(int index) async {
-      await _serviceMusica.play(index);
-      setState(() {});
+  void _tapCancion(int idx) async {
+    _serviceMusica.play(idx);
+    setState(() {});
+  }
 
-      void _reproductorOpen() {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Reproductor()),
-        );
-      }
-    }
+  void _reproductorOpen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Reproductor()),
+    );
   }
 
   @override
@@ -95,37 +97,6 @@ class _HomeScreenState extends State<HomeScreen>
       body: SafeArea(
         child: Column(
           children: [
-            /*Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 16.0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Flowing Music",
-                    style: TextStyle(
-                      fontFamily: 'RussoOne',
-                      fontSize: 30,
-                      decoration: TextDecoration.underline,
-                      color: lila,
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.settings, color: azul),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AjustesScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),*/
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
@@ -162,30 +133,65 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
               ),
             ),
-            const SizedBox(height: 16),
-            /*Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: ListView.builder(
-                itemCount: 100,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: ListTile(
-                      title: Text("Nombre Canción", style: txtStyle()),
-                      subtitle: Text("Artista", style: txtStyle(size: 16)),
-                      leading: const Icon(
-                        Icons.diamond,
-                        color: rosaClr,
-                        size: 32,
+            Expanded(
+              child: _isLoading
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(color: azul),
+                          SizedBox(height: 16),
+                          Text(
+                            'Buscando archivos de música...',
+                            style: txtStyle(),
+                          ),
+                        ],
                       ),
-                      trailing: Text("3:00", style: txtStyle()),
+                    )
+                  : _canciones.isEmpty
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.music_off, size: 80, color: lila),
+                          SizedBox(height: 16),
+                          Text(
+                            'No se encontraron canciones.',
+                            style: txtStyle(color: rosaOsc),
+                          ),
+                          SizedBox(height: 16),
+
+                          ElevatedButton(
+                            onPressed: _cargarCanciones,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: moradoP,
+                              //foregroundColor: negro,
+                            ),
+                            child: Text('Buscar de nuevo', style: txtStyle()),
+                          ),
+                        ],
+                      ),
+                    )
+                  : ListView.builder(
+                      padding: EdgeInsets.all(16),
+                      itemCount: _canciones.length,
+                      itemBuilder: (context, idx) {
+                        return SongTile(
+                          cancion: _canciones[idx],
+                          isPlaying: _serviceMusica.currentIndex == idx,
+                          onTap: () => _tapCancion(idx),
+                        );
+                      },
                     ),
-                  );
+            ),
+            if (_serviceMusica.cancionAct != null)
+              MiniPlyr(
+                onTap: () => _reproductorOpen(context),
+                pause: () async {
+                  await _serviceMusica.pause;
+                  setState(() {});
                 },
               ),
-            ),*/
           ],
         ),
       ),

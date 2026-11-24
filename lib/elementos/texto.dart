@@ -4,12 +4,14 @@ import '../temas/colores.dart';
 
 const bold = FontWeight.bold;
 const regular = FontWeight.normal;
+const gabarito = 'Gabarito';
+const russo = 'RussoOne';
 
-txtStyle({double? size = 18, color = blanco, weight = bold}) {
+txtStyle({double? size = 18, color = blanco, weight = bold, fam = gabarito}) {
   return TextStyle(
     fontSize: size,
     color: color,
-    fontFamily: 'Gabarito',
+    fontFamily: fam,
     fontWeight: weight,
   );
 }

@@ -3,7 +3,6 @@ import 'package:flowing_music/elementos/mini_player.dart';
 import 'package:flowing_music/reproductor/service_musica.dart';
 import 'package:flowing_music/reproductor/canciones_model.dart';
 
-import '../elementos/mini_player.dart';
 import 'reproductor.dart';
 
 import 'package:material_ui/material_ui.dart';
@@ -26,6 +25,12 @@ class _HomeScreenState extends State<HomeScreen>
   final ServiceMusica _serviceMusica = ServiceMusica();
   List<Cancion> _canciones = [];
   bool _isLoading = true;
+
+  Widget _buildBackground() {
+    return Positioned.fill(
+      child: Image.asset('assets/home_bg.png', fit: BoxFit.cover),
+    );
+  }
 
   @override
   void initState() {
@@ -67,8 +72,10 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         title: Text(
           "Flowing Music",
           style: TextStyle(
@@ -94,106 +101,115 @@ class _HomeScreenState extends State<HomeScreen>
           ),
         ],
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [transpMo, transpM]),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    bottomLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                ),
-                child: TabBar(
-                  controller: _tabController,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  dividerColor: Colors.transparent,
-                  labelStyle: TextStyle(
-                    fontFamily: 'Gabarito',
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  indicator: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      bottomLeft: Radius.circular(20),
-                    ),
-                    gradient: LinearGradient(colors: [moradoClr, blanco]),
-                  ),
-                  labelColor: moradoOsc,
-                  unselectedLabelColor: negro,
-                  tabs: const [
-                    Tab(text: 'Canciones'),
-                    Tab(text: 'Listas'),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: _isLoading
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CircularProgressIndicator(color: azul),
-                          SizedBox(height: 16),
-                          Text(
-                            'Buscando archivos de música...',
-                            style: txtStyle(),
-                          ),
-                        ],
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          _buildBackground(),
+          SafeArea(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(colors: [transpMo, transpM]),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
                       ),
-                    )
-                  : _canciones.isEmpty
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.music_off, size: 80, color: lila),
-                          SizedBox(height: 16),
-                          Text(
-                            'No se encontraron canciones.',
-                            style: txtStyle(color: rosaOsc),
+                    ),
+                    child: TabBar(
+                      controller: _tabController,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      dividerColor: Colors.transparent,
+                      labelStyle: TextStyle(
+                        fontFamily: 'Gabarito',
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      indicator: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          bottomLeft: Radius.circular(20),
+                        ),
+                        gradient: LinearGradient(colors: [moradoClr, blanco]),
+                      ),
+                      labelColor: moradoOsc,
+                      unselectedLabelColor: negro,
+                      tabs: const [
+                        Tab(text: 'Canciones'),
+                        Tab(text: 'Listas'),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: _isLoading
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircularProgressIndicator(color: azul),
+                              SizedBox(height: 16),
+                              Text(
+                                'Buscando archivos de música...',
+                                style: txtStyle(),
+                              ),
+                            ],
                           ),
-                          SizedBox(height: 16),
+                        )
+                      : _canciones.isEmpty
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.music_off, size: 80, color: lila),
+                              SizedBox(height: 16),
+                              Text(
+                                'No se encontraron canciones.',
+                                style: txtStyle(color: rosaOsc),
+                              ),
+                              SizedBox(height: 16),
 
-                          ElevatedButton(
-                            onPressed: _cargarCanciones,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: moradoP,
-                              //foregroundColor: negro,
-                            ),
-                            child: Text('Buscar de nuevo', style: txtStyle()),
+                              ElevatedButton(
+                                onPressed: _cargarCanciones,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: moradoP,
+                                  //foregroundColor: negro,
+                                ),
+                                child: Text(
+                                  'Buscar de nuevo',
+                                  style: txtStyle(),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    )
-                  : ListView.builder(
-                      padding: EdgeInsets.all(16),
-                      itemCount: _canciones.length,
-                      itemBuilder: (context, idx) {
-                        return SongTile(
-                          cancion: _canciones[idx],
-                          isPlaying: _serviceMusica.currentIndex == idx,
-                          onTap: () => _tapCancion(idx),
-                        );
-                      },
-                    ),
+                        )
+                      : ListView.builder(
+                          padding: EdgeInsets.all(16),
+                          itemCount: _canciones.length,
+                          itemBuilder: (context, idx) {
+                            return SongTile(
+                              cancion: _canciones[idx],
+                              isPlaying: _serviceMusica.currentIndex == idx,
+                              onTap: () => _tapCancion(idx),
+                            );
+                          },
+                        ),
+                ),
+                if (_serviceMusica.cancionAct != null)
+                  MiniPlyr(
+                    onTap: () => _reproductorOpen(context),
+                    pause: () async {
+                      await _serviceMusica.pause;
+                      setState(() {});
+                    },
+                  ),
+              ],
             ),
-            if (_serviceMusica.cancionAct != null)
-              MiniPlyr(
-                onTap: () => _reproductorOpen(context),
-                pause: () async {
-                  await _serviceMusica.pause;
-                  setState(() {});
-                },
-              ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

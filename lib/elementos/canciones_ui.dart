@@ -27,7 +27,7 @@ class SongTile extends StatelessWidget {
           colors: [transpP, transpL],
         ),
         borderRadius: BorderRadius.circular(20),
-        border: Border(bottom: BorderSide(color: blanco, width: 5)),
+        border: Border(bottom: BorderSide(color: negro, width: 5)),
       ),
       child: Material(
         type: MaterialType.transparency,
@@ -67,14 +67,14 @@ class SongTile extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: txtStyle(size: 14, weight: regular),
               ),
-              /*if (cancion.duration.inSeconds > 0)
-                Text(_formatoDuracion(cancion.duration), style: txtStyle()),*/
             ],
           ),
-          trailing: Text(
-            _formatoDuracion(cancion.duration),
-            style: txtStyle(size: 16),
-          ),
+          trailing: cancion.duration.inSeconds > 0
+              ? Text(
+                  _formatoDuracion(cancion.duration),
+                  style: txtStyle(size: 16),
+                )
+              : Text('--:--', style: txtStyle(size: 16)),
           onTap: onTap,
         ),
       ),
@@ -83,8 +83,8 @@ class SongTile extends StatelessWidget {
 
   String _formatoDuracion(Duration duration) {
     String dosDig(int n) => n.toString().padLeft(2, '0');
-    String dosDigMin = dosDig(duration.inMinutes.remainder(60));
-    String dosDigSeg = dosDig(duration.inSeconds.remainder(60));
-    return '$dosDigMin:$dosDigSeg';
+    final int minutes = duration.inMinutes.remainder(60);
+    final String seconds = dosDig(duration.inSeconds.remainder(60));
+    return '$minutes:$seconds';
   }
 }

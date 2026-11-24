@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:just_audio/just_audio.dart';
 
 import 'canciones_model.dart';
@@ -53,18 +54,10 @@ class ServiceMusica {
     List<String> dirs = [];
 
     final primaryPaths = [
-      //'/storage/emulated/0',
       '/storage/emulated/0/Music',
       '/storage/emulated/0/Download',
-      //'/storage/emulated/0/Android/data',
-      //'/storage/emulated/0/Android/media',
       '/storage/emulated/0/Media',
       '/storage/emulated/0/Audio',
-      //'/storage/emulated/0/Podcasts',
-      //'/storage/emulated/0/AudioBooks',
-      //'/storage/emulated/0/Ringtones',
-      //'/storage/emulated/0/Alarms',
-      //'/sdcard',
     ];
 
     final usePaths = <String>[
@@ -74,17 +67,7 @@ class ServiceMusica {
       '/storage/emulated/0/Audio',
     ];
 
-    /*final secondaryPaths = [
-      //'/storage/emulated/1',
-      '/storage/sdcard1',
-      //'/storage/sdcard2',
-      '/storage/extSdCard',
-      '/storage/external_SD',
-      '/storage/external_SDCard',
-    ];*/
-
     dirs.addAll(primaryPaths);
-    //dirs.addAll(secondaryPaths);
 
     /*try {
       final strgDir = Directory('/storage/emulated/0/Music');
@@ -169,18 +152,11 @@ class ServiceMusica {
           title = partes.sublist(1).join(' - ').trim();
         }
       }
-      /*try {
-        final tempPlayer = AudioPlayer();
-        await tempPlayer.setFilePath(file.path);
 
-        if (tempPlayer.duration != null) {
-          duration = tempPlayer.duration!;
-        }
-
-        await tempPlayer.dispose();
-      } catch (e) {
-        
-      }*/
+      final metadata = readMetadata(file, getImage: false);
+      if (metadata.duration != null) {
+        duration = metadata.duration!;
+      }
 
       return Cancion(
         title: title,
@@ -198,8 +174,7 @@ class ServiceMusica {
   List<Cancion> _rDupli(List<Cancion> canciones) {
     final seen = <String>{};
     return canciones.where((cancion) {
-      final key =
-          '${cancion.title}-${cancion.artist}-${cancion.duration.inSeconds}';
+      final key = '${cancion.title}-${cancion.artist}';
       return seen.add(key);
     }).toList();
   }

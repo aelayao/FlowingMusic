@@ -1,5 +1,6 @@
 import 'package:flowing_music/elementos/texto.dart';
-import 'package:flowing_music/reproductor/canciones_model.dart';
+//import 'package:flowing_music/reproductor/canciones_model.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flowing_music/reproductor/service_musica.dart';
 
@@ -27,7 +28,8 @@ class _MiniPlyrState() extends State<MiniPlyr> {
       onTap: widget.onTap,
 
       child: Container(
-        height: 100,
+        padding: EdgeInsets.all(15),
+        height: 120,
         //margin: EdgeInsets.all(16),
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -35,16 +37,78 @@ class _MiniPlyrState() extends State<MiniPlyr> {
             end: Alignment.bottomCenter,
             colors: [moradoOsc, transpMrep],
           ),
-          borderRadius: BorderRadius.circular(40),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(40),
+            topRight: Radius.circular(40),
+          ),
           border: Border(top: BorderSide(color: moradoP, width: 5)),
         ),
-      ),
-      /*Expanded(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
+          children: [
+            Container(
+              height: 50,
+              width: 50,
+              margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [rosaClr, rosaOsc],
+                ),
+              ),
+              child: Icon(Icons.star_rounded, size: 40, color: rosa),
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    cancionAct.title,
+                    style: txtStyle(size: 16, color: rosaClr),
+                  ),
+                ],
+              ),
+            ),
+            StreamBuilder<PlayerState>(
+              stream: _serviceMusica.audioPlayer.playerStateStream,
+              builder: ((context, snapshot) {
+                final playerState = snapshot.data;
+                final playing = playerState?.playing ?? false;
+                final processingState = playerState?.processingState;
+                if (processingState == ProcessingState.loading ||
+                    processingState == ProcessingState.buffering) {
+                  return Container(
+                    margin: EdgeInsets.all(8),
+                    width: 40,
+                    height: 40,
+                    child: CircularProgressIndicator(color: azul),
+                  );
+                } else {
+                  return IconButton(
+                    icon: Icon(
+                      playing == true ? Icons.pause : Icons.play_arrow,
+                      color: blanco,
+                      size: 40,
+                    ),
+                    onPressed: () {
+                      if (playing == true) {
+                        _serviceMusica.audioPlayer.pause();
+                      } else {
+                        _serviceMusica.audioPlayer.play();
+                      }
+                      widget.pause();
+                    },
+                  );
+                }
+              }),
+            ),
+          ],
         ),
-      ),*/
+      ),
     );
   }
 }

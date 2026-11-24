@@ -4,7 +4,7 @@ import 'colores.dart';
 
 ThemeData modoOscuro = ThemeData(
   colorScheme: ColorScheme.dark(
-    surface: negro,
+    surface: fondoM,
     primary: moradoMed,
     secondary: rosaOsc,
     inversePrimary: blanco,

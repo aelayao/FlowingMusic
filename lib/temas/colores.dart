@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 
 //colores generales
+const Color fondoM = Color.fromRGBO(54, 38, 71, 1);
 const Color moradoOsc = Color.fromRGBO(38, 46, 171, 1);
 const Color moradoP = Color.fromRGBO(55, 90, 213, 1);
 const Color moradoMed = Color.fromRGBO(76, 113, 255, 1);
@@ -21,3 +22,9 @@ const Color transpP = Color.fromRGBO(123, 151, 255, .23);
 const Color transpL = Color.fromRGBO(233, 195, 255, .23);
 
 const Color transpMrep = Color.fromRGBO(38, 46, 171, .1);
+
+// para gradientes
+const Color aj = Color.fromRGBO(108, 111, 169, 1);
+
+const Color ply2 = Color.fromRGBO(51, 50, 101, 1);
+const Color ply1 = Color.fromRGBO(58, 52, 64, 1);

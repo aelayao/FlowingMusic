@@ -32,9 +32,9 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/canciones/
-    - assets/portadas/
-    - assets/canciones.json
+    - assets/home_bg.png
+    - assets/listas_bg.png
+    - assets/ply_bg.png
     
   fonts:
     - family: Gabarito

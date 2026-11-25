@@ -3,11 +3,16 @@ import 'package:flowing_music/ventanas/home.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:material_ui/material_ui.dart';
 
+import '../listas.dart';
+
+import 'dart:typed_data';
+
+import '../elementos/cancion_nxt.dart';
 import '../temas/colores.dart';
 import '../reproductor/service_musica.dart';
 
 class Reproductor extends StatefulWidget {
-  const new({super.key});
+  const Reproductor({super.key});
 
   @override
   State<Reproductor> createState() => _ReproductorState();
@@ -15,6 +20,7 @@ class Reproductor extends StatefulWidget {
 
 class _ReproductorState extends State<Reproductor> {
   final ServiceMusica _serviceMusica = ServiceMusica();
+
   Widget _buildBackground() {
     return Positioned.fill(
       child: Image.asset('assets/ply_bg.png', fit: BoxFit.cover),
@@ -24,6 +30,9 @@ class _ReproductorState extends State<Reproductor> {
   @override
   Widget build(BuildContext context) {
     final cancionAct = _serviceMusica.cancionAct;
+    final sigCancion = _serviceMusica.sigCancion;
+    final Uint8List? portada = _serviceMusica.getArtwork(cancionAct);
+
     if (cancionAct == null) {
       return Scaffold(
         appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
@@ -63,13 +72,13 @@ class _ReproductorState extends State<Reproductor> {
           _buildBackground(),
           SafeArea(
             child: Padding(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(15),
               child: Column(
                 children: [
                   Spacer(),
                   Container(
-                    width: 300,
-                    height: 300,
+                    width: 280,
+                    height: 280,
                     decoration: BoxDecoration(
                       color: moradoMed,
                       boxShadow: [
@@ -100,15 +109,29 @@ class _ReproductorState extends State<Reproductor> {
                               color: rosaOsc,
                               shape: BoxShape.circle,
                             ),
-                            child: Center(
-                              child: Icon(Icons.image, size: 90, color: rosa),
-                            ),
+                            child: portada != null && portada.isNotEmpty
+                                ? Image.memory(
+                                    portada,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (_, __, ___) => Icon(
+                                      Icons.circle,
+                                      size: 25,
+                                      color: rosaClr,
+                                    ),
+                                  )
+                                : Center(
+                                    child: Icon(
+                                      Icons.circle,
+                                      size: 25,
+                                      color: rosaClr,
+                                    ),
+                                  ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(height: 50),
+                  SizedBox(height: 35),
                   Text(
                     cancionAct.title,
                     style: txtStyle(size: 24, weight: bold, fam: russo),
@@ -154,7 +177,7 @@ class _ReproductorState extends State<Reproductor> {
                                   });
                             },
                             activeColor: rosaClr,
-                            inactiveColor: blanco, //placeholderS
+                            inactiveColor: negro, //placeholderS
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 16),
@@ -176,24 +199,22 @@ class _ReproductorState extends State<Reproductor> {
                       );
                     },
                   ),
-                  SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      /*IconButton(
-                  onPressed: () async {
-                    _serviceMusica.shuffle();
-                    setState(() {});
-                  },
-                  icon: Icon(Icons.shuffle, size: 45),
-                  color: blanco,
-                ),*/
+                      IconButton(
+                        onPressed: () {
+                          _serviceMusica.shuffle();
+                          setState(() {});
+                        },
+                        icon: Icon(Icons.shuffle, size: 25, color: blanco),
+                      ),
                       IconButton(
                         onPressed: () async {
                           await _serviceMusica.prev();
                           setState(() {});
                         },
-                        icon: Icon(Icons.skip_previous, size: 55),
+                        icon: Icon(Icons.skip_previous, size: 45),
                         color: blanco,
                       ),
                       StreamBuilder(
@@ -213,8 +234,8 @@ class _ReproductorState extends State<Reproductor> {
                           } else {
                             return Container(
                               margin: EdgeInsets.all(8),
-                              width: 80,
-                              height: 80,
+                              width: 70,
+                              height: 70,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(color: blanco, width: 2),
@@ -229,7 +250,7 @@ class _ReproductorState extends State<Reproductor> {
                                   playing == true
                                       ? Icons.pause
                                       : Icons.play_arrow,
-                                  size: 60,
+                                  size: 52,
                                   color: blanco,
                                 ),
                               ),
@@ -242,12 +263,32 @@ class _ReproductorState extends State<Reproductor> {
                           await _serviceMusica.next();
                           setState(() {});
                         },
-                        icon: Icon(Icons.skip_next, size: 55),
+                        icon: Icon(Icons.skip_next, size: 45),
                         color: blanco,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ListasScreen(),
+                            ),
+                          );
+                          _serviceMusica.shuffle();
+                          setState(() {});
+                        },
+                        icon: Icon(Icons.list, size: 25, color: blanco),
                       ),
                     ],
                   ),
                   Spacer(),
+                  SongNxt(
+                    sigCancion: sigCancion,
+                    onTap: () async {
+                      await _serviceMusica.next();
+                      setState(() {});
+                    },
+                  ),
                 ],
               ),
             ),

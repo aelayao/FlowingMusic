@@ -13,7 +13,7 @@ void main() async {
 Future<void> _requestPermissions() async {
   await [
     Permission.storage,
-    Permission.manageExternalStorage,
+    //Permission.manageExternalStorage,
     Permission.audio,
   ].request();
 }

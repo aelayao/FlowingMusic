@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 //model = estructura de los datos
 
 class Cancion {
@@ -6,6 +8,7 @@ class Cancion {
   final String album;
   final String path;
   final Duration duration;
+  final Uint8List? artwork;
 
   Cancion({
     required this.title,
@@ -13,5 +16,6 @@ class Cancion {
     required this.album,
     required this.path,
     required this.duration,
+    this.artwork,
   });
 }

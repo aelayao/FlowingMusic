@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen>
                               Icon(Icons.music_off, size: 80, color: lila),
                               SizedBox(height: 16),
                               Text(
-                                'No se encontraron canciones.',
+                                'No se encontraron canciones. Descarga algunos archivos de audio y vuelve a intentarlo.',
                                 style: txtStyle(color: rosaOsc),
                               ),
                               SizedBox(height: 16),

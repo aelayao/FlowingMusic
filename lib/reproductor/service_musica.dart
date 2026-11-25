@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:just_audio/just_audio.dart';
@@ -26,6 +27,12 @@ class ServiceMusica {
       (_currentIndex >= 0 && _currentIndex < _canciones.length)
       ? _canciones[_currentIndex]
       : null;
+
+  Cancion? get sigCancion {
+    if (_canciones.isEmpty || _currentIndex < 0) return null;
+    final nxtIndex = (_currentIndex + 1) % _canciones.length;
+    return _canciones[nxtIndex];
+  }
 
   //cargar las canciones al servicio
 
@@ -68,19 +75,6 @@ class ServiceMusica {
     ];
 
     dirs.addAll(primaryPaths);
-
-    /*try {
-      final strgDir = Directory('/storage/emulated/0/Music');
-      if (await strgDir.exists()) {
-        await for (FileSystemEntity entity in strgDir.list(recursive: false)) {
-          if (entity is Directory && !dirs.contains(entity.path)) {
-            dirs.add(entity.path);
-          }
-        }
-      }
-    } catch (e) {
-      print("Error al intentar obtener los directorios de almacenamiento: $e");
-    }*/
 
     List<String> existDirs = [];
     for (String dir in usePaths) {
@@ -220,17 +214,32 @@ class ServiceMusica {
   }
 
   void shuffle() {
-    if (_canciones.length > 1) {
+    if (_canciones.length > 1 &&
+        _currentIndex >= 0 &&
+        _currentIndex < _canciones.length) {
       final cancionAct = _canciones[_currentIndex];
       _canciones.shuffle();
 
       final newIdx = _canciones.indexOf(cancionAct);
-      if (newIdx != _currentIndex) {
-        final a = _canciones[_currentIndex];
+      if (newIdx != -1 && newIdx != _currentIndex) {
+        final temp = _canciones[_currentIndex];
         _canciones[_currentIndex] = cancionAct;
-        _canciones[newIdx] = a;
+        _canciones[newIdx] = temp;
       }
     }
+  }
+
+  Uint8List? getArtwork(Cancion? cancion) {
+    if (cancion == null) return null;
+    try {
+      final metadata = readMetadata(File(cancion.path), getImage: true);
+      if (metadata.pictures.isNotEmpty) {
+        return metadata.pictures.first.bytes;
+      }
+    } catch (e) {
+      print("Error leyendo portada de ${cancion.path}: $e");
+    }
+    return null;
   }
 
   void dispose() {

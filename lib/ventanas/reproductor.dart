@@ -3,7 +3,7 @@ import 'package:flowing_music/ventanas/home.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:material_ui/material_ui.dart';
 
-import '../listas.dart';
+import 'listas_reproductor.dart';
 
 import 'dart:typed_data';
 
@@ -271,7 +271,7 @@ class _ReproductorState extends State<Reproductor> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ListasScreen(),
+                              builder: (context) => const ListasRepro(),
                             ),
                           );
                           _serviceMusica.shuffle();

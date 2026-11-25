@@ -8,18 +8,9 @@ class ListasScreen extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       children: const [
-        ListTileCard(
-          title: 'Mis Favoritas',
-          count: '5 canciones',
-        ),
-        ListTileCard(
-          title: 'Entrenamiento',
-          count: '12 canciones',
-        ),
-        ListTileCard(
-          title: 'Rock & Pop',
-          count: '8 canciones',
-        ),
+        ListTileCard(title: 'Mis Favoritas', count: '5 canciones'),
+        ListTileCard(title: 'Entrenamiento', count: '12 canciones'),
+        ListTileCard(title: 'Rock & Pop', count: '8 canciones'),
       ],
     );
   }
@@ -29,20 +20,13 @@ class ListTileCard extends StatelessWidget {
   final String title;
   final String count;
 
-  const ListTileCard({
-    super.key,
-    required this.title,
-    required this.count,
-  });
+  const ListTileCard({super.key, required this.title, required this.count});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12.0),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 16.0,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
       decoration: BoxDecoration(
         color: const Color(0xFF3F3268).withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(16.0),
@@ -69,10 +53,7 @@ class ListTileCard extends StatelessWidget {
           ),
           Text(
             count,
-            style: const TextStyle(
-              color: Colors.white70,
-              fontSize: 14,
-            ),
+            style: const TextStyle(color: Colors.white70, fontSize: 14),
           ),
         ],
       ),
